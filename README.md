@@ -1,2 +1,2 @@
 # MyBlog
-a simple django blog
+a simple django blog.
