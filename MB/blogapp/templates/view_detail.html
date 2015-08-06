@@ -1,0 +1,13 @@
+{{ArticleGet.title}}
+<br>
+<br>
+{{ArticleGet.datetime}}
+<br>
+<br>
+标签：
+{%for item in ArticleGet.tags.all%}
+	<a>{{item}}<a>
+{%endfor%}
+<br>
+<br>
+{{ArticleGet.content|safe}}

@@ -1,0 +1,15 @@
+{%for item in ArticleTagGet%}
+	<a href="/article/detail/?id={{item.id}}">{{item.title}}</a>
+	<br>
+	<br>
+	{{item.datetime}}
+	<br>
+	标签：
+	{%for tag in item.tags.all%}
+		<a>{{tag}}<a>
+	{%endfor%}
+	<br>
+	{{item.content|safe}}
+	<br>
+	<br>
+{%endfor%}

@@ -1,0 +1,59 @@
+<html lang="zh-cn">
+<head>
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="/comstatic/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/comstatic/bootstrap/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="/comstatic/bootstrap/css/bootstrap-theme.css">
+	<link rel="stylesheet" type="text/css" href="/comstatic/bootstrap/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" type="text/css" href="/comstatic/bootstrap/css/dashboard.css">
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-3 col-sm-4 sidebar">
+				<ul class="nav nav-sidebar">
+					<form class="navbar-form navbar-left" role="search" action="/article/search" method="get">
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Search" name="searchkey">
+							<span class="input-group-btn">
+								<button type="submit" class="btn btn-default">Search</button>
+							</span>
+						</div>
+						<!-- <button type="submit" class="btn btn-default">Submit</button> -->
+					</form>
+				</ul>
+				<hr>
+				<ul class="nav nav-sidebar">
+					<div class="col-sm-offset-3">
+						<li><a href="/article/tag/?tag=tag1">tag1</a></li>
+						<li><a href="/article/tag/?tag=tag2">tag2</a></li>
+						<li><a href="/article/tag/?tag=tag3">tag3</a></li>
+					</div>
+				</ul>
+			</div>
+			<div class="col-sm-9 col-sm-offset-3 col-md-9 col-md-offset-3 main">
+				{% for article in article_list %}
+				<div class = 'row'>
+					<h3><a href="/article/detail/?id={{article.id}}">{{article.title|safe}}</a></h3>
+				</div>
+				<div class = 'row'>
+					{{article.datetime|date:"Y-m-d"}}
+					{%for item in article.tag.all%}
+						<a>{{item}}</a>
+					{%endfor%}
+				</div>
+				<div class = 'row'>
+					<p>{{article.content|safe|truncatechars_html:200}}</p>
+				</div>
+				<hr>
+				{%endfor%}
+			</div>
+		</div>
+	</div>
+
+	<script type="text/javascript" src="/comstatic/bootstrap/js/bootstrap.js"></script>
+	<script type="text/javascript" src="/comstatic/bootstrap/js/bootstrap.min.js"></script>
+
+</body>
+</html>
