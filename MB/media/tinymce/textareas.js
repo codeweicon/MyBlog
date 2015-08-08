@@ -53,7 +53,7 @@ tinyMCE.init({
         // plugins : "pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality",
 
         plugins :"advlist,anchor,autolink,autoresize,charmap,colorpicker,contextmenu,directionality,emoticons,example,fullpage,fullscreen,hr,image,imagetools,insertdatetime,link,media,preview,paste,save,table,template,textcolor,textpattern,visualblocks,visualchars",
-        toolbar: "forecolor backcolor",
+        toolbar: "forecolor backcolor fontsizeselect",
         width: '400',
         height: '800',
 

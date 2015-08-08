@@ -9,13 +9,29 @@ def showlist_article(req):
 def modify_article(req):
 	return render(req, 'modify.html')
 
+
 def view_article(req):
-
 	article_list =  Article.objects.all()
-	passcontent =  {'article_list':article_list}
-	return render(req, 'view.html', passcontent)
-def view_detail(req):
+	taglist = Tag.objects.all()
+	# print type(taglist)
+	# for tag in taglist:
+	# 	print tag;
+	# for i in range(len(taglist)-1,-1,-1):
+	# 	print taglist[i]
 
+	for i in range(len(article_list)-1,-1,-1):
+		print	article_list[i].title ;
+	# article_list1 = article_list.reverse()
+	# for item in article_list1:
+	# 	print item.title;
+
+	#here i used [::-1] to set the recent article at the front of list
+	#failed in using reverse()
+	passcontent =  {'article_list':article_list[::-1], 'taglist':taglist}
+	return render(req, 'view.html', passcontent)
+
+
+def view_detail(req):
 	Id = req.GET.get('id','')
 	if Id == '':
 		return HttpResponseRedirect('/article/detail/')
@@ -23,11 +39,12 @@ def view_detail(req):
 		ArticleGet = Article.objects.get(pk = Id)
 	except:
 		return HttpResponseRedirect('/article/detail/')
-
-	passcontent = {'ArticleGet':ArticleGet}
+	taglist = Tag.objects.all()
+	passcontent = {'ArticleGet':ArticleGet,'taglist':taglist}
 	print type(ArticleGet)
 
 	return render(req, 'view_detail.html', passcontent)
+
 
 def search_article(req):
 	key = req.GET.get('searchkey','')
@@ -38,29 +55,22 @@ def search_article(req):
 		ArticleFilter = Article.objects.filter(title__contains = key.encode("utf-8"))
 	except ArticleFilter.DoesNotExist:
 		return HttpResponseRedirect('/article/view/')
-
-	passcontent = {'ArticleFilter':ArticleFilter}
-	# for item in ArticleFilter:
-	# 	print item.title
-	# 	print item.tags
-	# 	print item.content
-
+	taglist = Tag.objects.all()
+	passcontent = {'ArticleFilter':ArticleFilter[::-1],'taglist':taglist}
 	return render(req, 'search_result.html', passcontent)
+
 
 def search_tags(req):
 	tag = req.GET.get('tag','')
 	print "***get tags***"
-	print "tag = ",tag
+	# print "tag = ",tag
 	
 	# tag = tag[1:-1] 
 	# here i don't know why it post me a tag with "" like "tag3" or "tag2"
 	#the " and " make filter return a empty query set
 	#so i remove it 
-
-
-	print tag
-	print type(tag)
-
+	# print tag
+	# print type(tag)
 
 	try:
 		TagGet =  Tag.objects.filter(tag_name = tag.encode("utf-8"))
@@ -84,8 +94,10 @@ def search_tags(req):
 	ArticleTagGet = Article.objects.filter(tags__id = TagGet[0].id) #tags__id this is for many to many field
 	for item in ArticleTagGet:
 		print item
-	passcontent = {'ArticleTagGet':ArticleTagGet}
+	taglist = Tag.objects.all()
+	passcontent = {'ArticleTagGet':ArticleTagGet[::-1],'taglist':taglist}
 	return render(req, 'tab_result.html', passcontent)
+
 
 
 

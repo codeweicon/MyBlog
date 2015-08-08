@@ -1,13 +1,14 @@
-{{ArticleGet.title}}
-<br>
-<br>
+{% extends "base.html"%}
+{%block content%}
+
+<h2>{{ArticleGet.title}}</h2>
+<br><br>
 {{ArticleGet.datetime}}
-<br>
-<br>
-标签：
+<br><br>
+TAG：
 {%for item in ArticleGet.tags.all%}
-	<a>{{item}}<a>
+<a>{{item}}  </a>
 {%endfor%}
-<br>
-<br>
+<br><br>
 {{ArticleGet.content|safe}}
+{%endblock%}
